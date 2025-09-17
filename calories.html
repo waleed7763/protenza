@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css/css.css">
+</head>
+<body>
+    
+    <header>
+        
+            <div class="logo"><a href="home.html"><img src="img/logo.png" 
+                            alt="logo img"></a></div>
+              <div class="head-text"><h1>PROTENZA</h1></div>
+            <div class="links">
+                <ul>
+                   <li><a href="home.html">Home</a></li>
+                    <li><a href="login.html">login</a></li>
+                    <li><a href="plans.html">Plans</a></li>
+                    <li><a href="workout.html">Workout</a></li>
+                    <li><a href="nutrition.html">Nutrition</a></li>
+                    
+                </ul>
+            </div>
+        
+
+    </header>
+   
+    <main>
+         <div class="main-text">
+                 <h1 ><span>Build</span> your body </h1>
+                 <h2 ><span>Build</span> your future</h2>
+              </div>
+
+                 <section class="calorie-calculator">
+        <h2 class="Calorie-h2">Calorie Calculator</h2>
+        <form id="calForm" onsubmit="return false;">
+            <label for="age" class="label-cal"  >Age (years)</label>
+            <input type="number" id="age" min="10" required class="input-cal" >
+
+            <label for="gender" class="label-cal" >Gender</label>
+            <select id="gender" required class="input-cal">
+            <option value="male" class="gender">Male</option>
+            <option value="female" class="gender">Female</option>
+            </select>
+
+            <label for="weight"  class="label-cal" >Weight (kg)</label>
+            <input type="number" id="weight" step="0.1" min="20" required class="input-cal">
+
+            <label for="height"  class="label-cal" >Height (cm)</label>
+            <input type="number" id="height" step="0.1" min="50" required class="input-cal">
+
+            <label for="activity" class="label-cal" >Activity level</label>
+            <select id="activity" required   class="input-cal">
+            <option value="1.2">Sedentary — little or no exercise</option>
+            <option value="1.375">Light — 1-3 days/week</option>
+            <option value="1.55" selected>Moderate — 3-5 days/week</option>
+            <option value="1.725">Very active — 6-7 days/week</option>
+            <option value="1.9">Super active — hard training</option>
+            </select>
+
+            <button id="calcBtn">Calculate</button>
+        </form>
+
+        <div id="result"></div>
+        </section>
+</div>
+    </main>
+     <script>
+  const btn  = document.getElementById('calcBtn');
+  const res  = document.getElementById('result');
+
+  function round(n){ return Math.round(n); }
+
+  btn.addEventListener('click', function () {
+    const age = Number(document.getElementById('age').value);
+    const gender = document.getElementById('gender').value;
+    const weight = Number(document.getElementById('weight').value);
+    const height = Number(document.getElementById('height').value);
+    const activity = Number(document.getElementById('activity').value);
+
+    if (!age || !weight || !height || !activity) {
+      res.style.display = 'block';
+      res.innerHTML = '<strong style="color:red">Please fill all fields!</strong>';
+      return;
+    }
+
+    let bmr;
+    if (gender === 'male') {
+      bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+    } else {
+      bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+    }
+
+    const tdee = bmr * activity;
+    const bulk = tdee + 300;
+    const cut  = tdee - 500;
+
+    res.style.display = 'block';
+    res.innerHTML = `
+      <p><strong>BMR:</strong> ${round(bmr)} kcal/day</p>
+      <p><strong>TDEE:</strong> ${round(tdee)} kcal/day</p>
+      <p><strong>Bulking (gain):</strong> ${round(bulk)} kcal/day</p>
+      <p><strong>Cutting (loss):</strong> ${round(cut)} kcal/day</p>
+    `;
+  });
+</script>
+
+    <footer>
+          <a href="" class="contact">contact</a>
+          <p>&copy; All rights reserved to Protenza 2025</p>
+    </footer>
+</body>
+</html>
